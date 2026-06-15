@@ -24,3 +24,17 @@ st.bar_chart(chart_data) # 변수만 넣으면 그래프가 자동 생성됨
 # 이미지 넣기 (폴더에 이미지 파일이 있어야 함) [cite: 47, 50, 51]
 # img = Image.open('이미지파일이름.png')
 # st.image(img, width=300)
+
+import pandas as pd
+
+# 1. 깔끔한 표(DataFrame) 띄우기
+df = pd.DataFrame({
+    'id': [1, 2, 3], 'name': ['Alice', 'Bob', 'Charlie'], 'age': [24, 34, 45] # [cite: 1092, 1094, 1096]
+})
+df # 💡 Streamlit Magic 기능 덕분에 변수명만 띡 적어도 표가 화면에 출력됨! [cite: 972, 1083, 1100]
+
+# 2. 대시보드 상단 숫자 지표 (★ 3분할 화면 만들기)
+col1, col2, col3 = st.columns(3) # 화면을 가로로 3칸 쪼갬 [cite: 1104]
+col1.metric("기온", "70 °F", "1.2 °F") # (이름, 현재값, 변동폭) [cite: 1105]
+col2.metric("바람", "9 mph", "-8%") # [cite: 1106]
+col3.metric("습도", "86%", "4%") # [cite: 1107]
