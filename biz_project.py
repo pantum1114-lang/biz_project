@@ -2,39 +2,47 @@ import streamlit as st # 1. 무조건 맨 위에 써야 함 [cite: 118]
 import pandas as pd
 import numpy as np
 from PIL import Image
+import matplotlib.pyplot as plt
 
-# 텍스트 출력 종류별 모음 [cite: 121, 124, 127]
-st.title('큰 제목 (Title)') 
-st.write('# 일반 텍스트 (Markdown 가능)') 
-st.markdown('**굵은 글씨**나 *기울임* 등 자유로운 꾸미기')
+# 1. 페이지 대문 제목
+st.title("🎸 내 취향 저격! 대한민국 대표 음악 페스티벌 대시보드")
+st.write("수많은 페스티벌 중 가장 개성이 뚜렷한 5가지 페스티벌의 위치와 정보를 한눈에 비교합니다.")
+st.divider() # 구분선
 
-# 데이터 표(DataFrame) 그리기 [cite: 31, 36]
-st.write('# 2. 표 그리기')
-df = pd.DataFrame({
-    '항목1': ['A', 'B', 'C'],
-    '항목2': [10, 20, 30]
+# 2. 데이터프레임 (표) 만들기
+st.header("📋 1. 페스티벌 기본 정보 비교")
+
+festival_data = pd.DataFrame({
+    '페스티벌명': ['인천 펜타포트', '부산국제록페', '서울 파크뮤직', '피크 페스티벌', '더글로우'],
+    '특징': ['정통 락 & 해외 라인업', ' 국내외 메이저 락 밴드', '도심 속 피크닉 감성', '한강 라이브 밴드 정수', '쾌적한 감성 밴드 중심'],
+    '티켓가격(원)': [220000, 160000, 110000, 100000, 120000],
+    'lat': [37.432, 35.166, 37.520, 37.567, 37.663], # 위도
+    'lon': [126.631, 128.971, 127.121, 126.877, 126.746] # 경도
 })
-st.dataframe(df) # 마우스로 정렬 가능한 표가 웹에 뜸
 
-# 막대 그래프 그리기 [cite: 42, 44]
-st.write('# 3. 그래프 그리기')
-chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
-st.bar_chart(chart_data) # 변수만 넣으면 그래프가 자동 생성됨
+# 화면에 표 출력
+st.dataframe(festival_data[['페스티벌명', '특징', '티켓가격(원)']])
+st.divider()
 
-# 이미지 넣기 (폴더에 이미지 파일이 있어야 함) [cite: 47, 50, 51]
-# img = Image.open('이미지파일이름.png')
-# st.image(img, width=300)
+# 3. 지도 그리기 (각자 위치가 다르다는 개성 어필!)
+st.header("🗺️ 2. 전국 페스티벌 개최 위치")
+st.write("각 페스티벌이 열리는 전국의 주 무대를 확인해 보세요.")
+# lat과 lon 컬럼만 쏙 빼서 지도에 점 찍기
+map_data = festival_data[['lat', 'lon']]
+st.map(map_data)
+st.divider()
 
-import pandas as pd
+# 4. Matplotlib로 티켓 가격 비교 그래프 그리기
+st.header("📊 3. 페스티벌별 티켓 가격 비교")
 
-# 1. 깔끔한 표(DataFrame) 띄우기
-df = pd.DataFrame({
-    'id': [1, 2, 3], 'name': ['Alice', 'Bob', 'Charlie'], 'age': [24, 34, 45] # [cite: 1092, 1094, 1096]
-})
-df # 💡 Streamlit Magic 기능 덕분에 변수명만 띡 적어도 표가 화면에 출력됨! [cite: 972, 1083, 1100]
+fig, ax = plt.subplots(figsize=(7, 4))
+# 막대 그래프 그리기 (x축: 페스티벌명, y축: 티켓가격)
+ax.bar(festival_data['페스티벌명'], festival_data['티켓가격(원)'], color=['red', 'blue', 'green', 'orange', 'purple'])
+ax.set_ylabel("가격 (원)")
+ax.set_title("2026년도 페스티벌 1일권 티켓 가격 비교")
+ax.grid(True, axis='y', linestyle='--')
 
-# 2. 대시보드 상단 숫자 지표 (★ 3분할 화면 만들기)
-col1, col2, col3 = st.columns(3) # 화면을 가로로 3칸 쪼갬 [cite: 1104]
-col1.metric("기온", "70 °F", "1.2 °F") # (이름, 현재값, 변동폭) [cite: 1105]
-col2.metric("바람", "9 mph", "-8%") # [cite: 1106]
-col3.metric("습도", "86%", "4%") # [cite: 1107]
+# 💡 윈도우 환경에서 한글 깨짐 방지 팁 (필요시 사용)
+plt.rcParams['font.family'] = 'Malgun Gothic'
+
+st.pyplot(fig) # 스트림릿에 그래프 출력
