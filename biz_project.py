@@ -9,7 +9,7 @@ import random
 favorite_bands = ['잔나비', '드래곤포니', '리도어', '실리카겔', '신인류', '이승윤', '한로로', '오월오일']
 recommended_band = random.choice(favorite_bands)
 
-st.title('🎸 국내 락 페스티벌 가이드')
+st.title('🎸 락 페스티벌 가이드맵')
 st.divider()
 
 tab1, tab2, tab3, tab4 = st.tabs(["Home", "Introduce", "Comparison", "Preparation"])
