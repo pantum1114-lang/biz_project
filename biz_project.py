@@ -4,7 +4,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 from datetime import date
 import random
-
+def play_audio(file_name, backup_url):
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    full_path = os.path.join(base_dir, 'music', file_name)
+    if os.path.exists(full_path):
+        st.audio(full_path)
+    else:
+        st.audio(backup_url)
 
 favorite_bands = ['잔나비', '드래곤 포니', '리도어', '실리카겔', '신인류', '이승윤', '한로로', '오월오일']
 recommended_band = random.choice(favorite_bands)
