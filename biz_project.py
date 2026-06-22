@@ -4,15 +4,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from datetime import date
 import random
-def play_audio(file_name, backup_url):
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    full_path = os.path.join(base_dir, 'music', file_name)
-    if os.path.exists(full_path):
-        st.audio(full_path)
-    else:
-        st.audio(backup_url)
 
-favorite_bands = ['잔나비', '드래곤 포니', '리도어', '실리카겔', '신인류', '이승윤', '한로로', '오월오일']
+
+favorite_bands = ['잔나비', '드래곤포니', '리도어', '실리카겔', '신인류', '이승윤', '한로로', '오월오일']
 recommended_band = random.choice(favorite_bands)
 
 st.title('🎸 국내 락 페스티벌 가이드')
@@ -20,6 +14,7 @@ st.divider()
 
 tab1, tab2, tab3, tab4 = st.tabs(["Home", "Introduce", "Comparison", "Preparation"])
 
+#---------------------------------------------------------------------------------------
 with tab1:
     st.header('오늘의 추천 밴드')
     st.success(
@@ -55,7 +50,7 @@ with tab1:
     )
 
 
-
+#-------------------------------------------------------------
 with tab2:
     st.header('Introduce')
     st.markdown('국내 주요 페스티벌(The Glow, 인천 펜타포트 락 페스티벌, 부산 국제 록 페스티벌, 피크 페스티벌, 파크 뮤직 페스티벌) 주요 정보 및 특징 정리')
@@ -105,7 +100,7 @@ with tab2:
         st.markdown('**📅 개최 일자**: 매년 5월 (봄)')
         st.markdown('**🎫 티켓 가격**: 1일권 110.000 / 2일권 149.000')
     with col_pk2:
-        st.warning('**🎵 대표 라인업**\n\n(2026 기준) 10cm, 극동아시아타이거즈, 리도어, 로맨틱펀치, 바이바이밴드맨')
+        st.warning('**🎵 대표 라인업**\n\n(2026 기준) SPYAIR, 극동아시아타이거즈, 리도어, 로맨틱펀치, 바이바이밴드맨')
     st.markdown('**💬 특징**: :orange[한강공원 잔디마당 위에서 싱그러운 바람과 가슴이 탁 트이는 강변 뷰를 자랑하며, 화려하고 폭발적인 밴드 라이브 공연으로 한 해 락페의 시즌 개막을 알립니다.]')
     st.divider()
 
@@ -122,7 +117,7 @@ with tab2:
     st.divider()
 
 
-
+# ------------------------------------------------------------
 with tab3:
     st.header('Comparison')
     st.markdown('5개의 국내 주요 페스티벌의 일정, 장소, 가격, 그리고 공간 유형별 특징을 다각도로 분석하여 비교')
@@ -193,7 +188,7 @@ with tab3:
 
     axes[0].plot(festivals_labels, ticket_prices_k, 'rs-', linewidth=2, markersize=8)
     axes[0].set_title('Ticket Price (Unit: 1,000 KRW)')
-    axes[0].set_ylim(100, 130)
+    axes[0].set_ylim(100, 125)
     axes[0].grid(True)
 
     axes[1].bar(festivals_labels, festival_months, color='green', alpha=0.7)
@@ -243,50 +238,28 @@ with tab4:
     st.divider()
 
     st.subheader('🎧 현장 프리뷰 미디어 플레이어')
-    st.caption('각 페스티벌을 선택하면 해당 축제 대표 라인업 밴드의 추천 음원과 현장의 실시간 유튜브 라이브 스케치 영상을 직접 감상할 수 있습니다.')
+    st.caption('각 페스티벌을 선택하면 해당 페스티벌 현장의 실시간 유튜브 라이브 스케치 영상을 직접 감상할 수 있습니다.')
     
     selected_media = st.selectbox(
         '감상하고 싶은 페스티벌 미디어를 선택하세요:',
         ['더글로우 (The Glow)', '인천 펜타포트 록 페스티벌', '부산 국제 록 페스티벌', '피크 페스티벌', '서울 파크 뮤직 페스티벌']
     )
 
-    col_m1, col_m2 = st.columns(2)
-
     if selected_media == '더글로우 (The Glow)':
-        with col_m1:
-            st.markdown('**🎵 추천 모던 록 감성 음원**')
-            play_audio('Glow.mp3', 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3')
-        with col_m2:
-            st.markdown('**🎥 드래곤 포니 - 실시간 라이브 영상**')
-            st.video('https://www.youtube.com/watch?v=k_z-m8T_G9E')
+            st.markdown('**🎥 리도어 : 2026 The Glow 현장 스케치 영상**')
+            st.video('https://youtu.be/vBsbWrX4nFo?si=tmeeOpn94StlgdZe')
     elif selected_media == '인천 펜타포트 록 페스티벌':
-        with col_m1:
-            st.markdown('**🎵 정통 하드 록 에너제틱 음원**')
-            st.audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3')
-        with col_m2:
-            st.markdown('**🎥 실리카겔 - 펜타포트 레전드 라이브 영상**')
-            st.video('https://www.youtube.com/watch?v=3S1NInI9pUI')
+            st.markdown('**🎥 잔나비 : 비틀 파워! + 고백극장 | 2024 인천 펜타포트 락페스티벌**')
+            st.video('https://youtu.be/7JYvcIn_1os?si=FP5S9X89JGb2V8c1&t=270')
     elif selected_media == '부산 국제 록 페스티벌':
-        with col_m1:
-            st.markdown('**🎵 가을 밤 낙동강변의 헤비 록 음원**')
-            st.audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3')
-        with col_m2:
-            st.markdown('**🎥 터치드 - 부산 국제 록 페스티벌 하이라이트**')
-            st.video('https://www.youtube.com/watch?v=Q87u-6YmEGs')
+            st.markdown('**🎥 이승윤 : 날아가자 Live Clip @ 2025 BUSAN INTERNATIONAL ROCK FESTIVAL**')
+            st.video('https://www.youtube.com/watch?v=ZeUJljStWs0')
     elif selected_media == '피크 페스티벌':
-        with col_m1:
-            st.markdown('**🎵 한강변의 청량한 어쿠스틱 팝 록 음원**')
-            st.audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3')
-        with col_m2:
-            st.markdown('**🎥 로맨틱펀치 - 한강 피크 페스티벌 열정의 무대**')
-            st.video('https://www.youtube.com/watch?v=z3m9yNn51u4')
+            st.markdown('**🎥 SPYAIR : 2026 피크 페스티벌 현장 스케치 영상**')
+            st.video('https://www.youtube.com/watch?v=zL-m_YXqa6g')
     elif selected_media == '서울 파크 뮤직 페스티벌':
-        with col_m1:
-            st.markdown('**🎵 잔디마당 피크닉에 어울리는 이지리스닝 음원**')
-            st.audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3')
-        with col_m2:
-            st.markdown('**🎥 잔나비 - 파크 뮤직 페스티벌 감성 떼창 영상**')
-            st.video('https://www.youtube.com/watch?v=q1rE92S-Lko')
+            st.markdown('**2023 SEOUL PARK MUSIC FESTIVAL After Movie**')
+            st.video('https://www.youtube.com/watch?v=U96mX4KYfVQ')
 
     st.divider()
 
