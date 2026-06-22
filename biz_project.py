@@ -21,7 +21,7 @@ with tab1:
         icon="✅",
         body=f"오늘의 랜덤 추천 밴드는 **{recommended_band}**입니다!")
     
-    st.caption("💡 새로고침(F5)을 누를 때마다 오늘의 추천 밴드가 무작위로 변경됩니다.")
+    st.caption("새로고침(F5)을 누를 때마다 오늘의 추천 밴드가 무작위로 변경됩니다.")
     st.divider()
 
     st.header('당신은 어떤 스타일의 페스티벌 관객인가요?')
